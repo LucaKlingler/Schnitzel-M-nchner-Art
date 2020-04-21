@@ -1,0 +1,16 @@
+{
+    "name": "Hausaufgabe",
+    "version": "0.0.0",
+    "description": "",
+    "main": "src/server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node src/server.js",
+        "lint": "eslint src/server.js"
+    },
+    "author": "Luca Klingler",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.19.2"
+    }
+}
