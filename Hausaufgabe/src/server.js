@@ -11,8 +11,9 @@ axios({
   responseType: 'json'
 })
 .then(function (response) {
-  result = response.data;
+  const result = response.data;
   console.log(result);
+  data = result;
 });
 
 app.get('/user/:uid', (req, res) => {
