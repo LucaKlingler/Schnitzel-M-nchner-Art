@@ -1,3 +1,4 @@
+// Imports
 const axios = require('axios').default;
 const express = require('express');
 const cors = require('cors');
@@ -27,25 +28,28 @@ app.get('/user/:uid', (req, res) => {
 
 app.get('/mensa/:day', (req, res) => {
   if (data !== undefined) {
-    if (req.params.day === 'Di') {
-      res.send(data);
+    let daydata = data.filter(essen => essen.day == req.params.day);
+    if(daydata.length === 0) {
+      res.status(404).send('Error 404');
     } else {
-      res.status(404).send('missing data');
+      res.send(daydata);
     }
   } else {
     res.status(404).send('Error: 404');
   }
 });
 
-app.post('/api/addData/', (req, res)  => {
-  if (!JSON.stringify(data).includes(JSON.stringify(req.body))) {
-    data.append(req.data);
-    res.status(200).send();
+app.post('/mensa/insert'), (req, res) => {
+  //Rausfinden ob Mahlzeit für gegebene Kategorie und Tag schon gibt
+  let findResult = data.find(essen => (essen.category === req.body.category && essen.day == req.body.day))
+
+  if(findResult == undefined) {
+    data.push(req.body);
+    res.status(200).send(OK)
+  } else {
+    res.status(418).send('im a teapot');
   }
-  else {
-    res.status(403).send("Already loaded");
-  }
-});
+}
 
 app.get('/api/getData/', (req, res)  => {
   res.status(200).send(data);
@@ -55,3 +59,4 @@ app.get('/api/getData/', (req, res)  => {
 app.listen(3000, () => {
   console.log('Example app listening on port  3000!');
 });
+
